@@ -38,232 +38,31 @@ SPDX-License-Identifier: AGPL-3.0-only
 		<MkInfo v-if="isSafeMode" warn>{{ i18n.ts.themeIsDefaultBecauseSafeMode }}</MkInfo>
 
 		<div v-else class="_gaps">
-			<template v-if="!store.r.darkMode.value">
-				<SearchMarker :keywords="['light', 'theme']">
-					<MkFolder :defaultOpen="true" :max-height="500">
-						<template #icon><i class="ti ti-sun"></i></template>
-						<template #label><SearchLabel>{{ i18n.ts.themeForLightMode }}</SearchLabel></template>
-						<template #caption>{{ lightThemeName }}</template>
-
-						<div class="_gaps_m">
-							<FormSection v-if="instanceLightTheme != null" first>
-								<template #label>{{ i18n.ts._theme.instanceTheme }}</template>
-								<div :class="$style.themeSelect">
-									<div :class="$style.themeItemOuter">
-										<input
-											:id="`themeRadio_${instanceLightTheme.id}`"
-											v-model="lightThemeId"
-											type="radio"
-											name="lightTheme"
-											:class="$style.themeRadio"
-											:value="instanceLightTheme.id"
-										/>
-										<label :for="`themeRadio_${instanceLightTheme.id}`" :class="$style.themeItemRoot" class="_button" @contextmenu.prevent.stop="onThemeContextmenu(instanceLightTheme, $event)">
-											<MkThemePreview :theme="instanceLightTheme" :class="$style.themeItemPreview"/>
-											<div :class="$style.themeItemCaption">{{ instanceLightTheme.name }}</div>
-										</label>
-									</div>
-								</div>
-							</FormSection>
-
-							<FormSection v-if="installedLightThemes.length > 0" :first="instanceLightTheme == null">
-								<template #label>{{ i18n.ts._theme.installedThemes }}</template>
-								<div :class="$style.themeSelect">
-									<div v-for="theme in installedLightThemes" :class="$style.themeItemOuter">
-										<input
-											:id="`themeRadio_${theme.id}`"
-											v-model="lightThemeId"
-											type="radio"
-											name="lightTheme"
-											:class="$style.themeRadio"
-											:value="theme.id"
-										/>
-										<label :for="`themeRadio_${theme.id}`" :class="$style.themeItemRoot" class="_button" @contextmenu.prevent.stop="onThemeContextmenu(theme, $event)">
-											<MkThemePreview :theme="theme" :class="$style.themeItemPreview"/>
-											<div :class="$style.themeItemCaption">{{ theme.name }}</div>
-										</label>
-									</div>
-								</div>
-							</FormSection>
-
-							<FormSection :first="installedLightThemes.length === 0 && instanceLightTheme == null">
-								<template #label>{{ i18n.ts._theme.builtinThemes }}</template>
-								<div :class="$style.themeSelect">
-									<div v-for="theme in builtinLightThemes" :class="$style.themeItemOuter">
-										<input
-											:id="`themeRadio_${theme.id}`"
-											v-model="lightThemeId"
-											type="radio"
-											name="lightTheme"
-											:class="$style.themeRadio"
-											:value="theme.id"
-										/>
-										<label :for="`themeRadio_${theme.id}`" :class="$style.themeItemRoot" class="_button" @contextmenu.prevent.stop="onThemeContextmenu(theme, $event)">
-											<MkThemePreview :theme="theme" :class="$style.themeItemPreview"/>
-											<div :class="$style.themeItemCaption">{{ theme.name }}</div>
-										</label>
-									</div>
-								</div>
-							</FormSection>
-						</div>
-					</MkFolder>
-				</SearchMarker>
-			</template>
-			<template v-else>
-				<SearchMarker :keywords="['dark', 'theme']">
-					<MkFolder :defaultOpen="true" :max-height="500">
-						<template #icon><i class="ti ti-moon"></i></template>
-						<template #label><SearchLabel>{{ i18n.ts.themeForDarkMode }}</SearchLabel></template>
-						<template #caption>{{ darkThemeName }}</template>
-
-						<div class="_gaps_m">
-							<FormSection v-if="instanceDarkTheme != null" first>
-								<template #label>{{ i18n.ts._theme.instanceTheme }}</template>
-								<div :class="$style.themeSelect">
-									<div :class="$style.themeItemOuter">
-										<input
-											:id="`themeRadio_${instanceDarkTheme.id}`"
-											v-model="darkThemeId"
-											type="radio"
-											name="darkTheme"
-											:class="$style.themeRadio"
-											:value="instanceDarkTheme.id"
-										/>
-										<label :for="`themeRadio_${instanceDarkTheme.id}`" :class="$style.themeItemRoot" class="_button" @contextmenu.prevent.stop="onThemeContextmenu(instanceDarkTheme, $event)">
-											<MkThemePreview :theme="instanceDarkTheme" :class="$style.themeItemPreview"/>
-											<div :class="$style.themeItemCaption">{{ instanceDarkTheme.name }}</div>
-										</label>
-									</div>
-								</div>
-							</FormSection>
-
-							<FormSection v-if="installedDarkThemes.length > 0" :first="instanceDarkTheme == null">
-								<template #label>{{ i18n.ts._theme.installedThemes }}</template>
-								<div :class="$style.themeSelect">
-									<div v-for="theme in installedDarkThemes" :class="$style.themeItemOuter">
-										<input
-											:id="`themeRadio_${theme.id}`"
-											v-model="darkThemeId"
-											type="radio"
-											name="darkTheme"
-											:class="$style.themeRadio"
-											:value="theme.id"
-										/>
-										<label :for="`themeRadio_${theme.id}`" :class="$style.themeItemRoot" class="_button" @contextmenu.prevent.stop="onThemeContextmenu(theme, $event)">
-											<MkThemePreview :theme="theme" :class="$style.themeItemPreview"/>
-											<div :class="$style.themeItemCaption">{{ theme.name }}</div>
-										</label>
-									</div>
-								</div>
-							</FormSection>
-
-							<FormSection :first="installedDarkThemes.length === 0 && instanceDarkTheme == null">
-								<template #label>{{ i18n.ts._theme.builtinThemes }}</template>
-								<div :class="$style.themeSelect">
-									<div v-for="theme in builtinDarkThemes" :class="$style.themeItemOuter">
-										<input
-											:id="`themeRadio_${theme.id}`"
-											v-model="darkThemeId"
-											type="radio"
-											name="darkTheme"
-											:class="$style.themeRadio"
-											:value="theme.id"
-										/>
-										<label :for="`themeRadio_${theme.id}`" :class="$style.themeItemRoot" class="_button" @contextmenu.prevent.stop="onThemeContextmenu(theme, $event)">
-											<MkThemePreview :theme="theme" :class="$style.themeItemPreview"/>
-											<div :class="$style.themeItemCaption">{{ theme.name }}</div>
-										</label>
-									</div>
-								</div>
-							</FormSection>
-						</div>
-					</MkFolder>
-				</SearchMarker>
-			</template>
+			<MkInfo>
+				<template #icon><i class="ti ti-palette"></i></template>
+				Monochrome themes are automatically applied based on your light/dark mode preference.
+			</MkInfo>
 		</div>
 
-		<SearchMarker :keywords="['sync', 'themes', 'devices']">
-			<MkSwitch :modelValue="themesSyncEnabled" @update:modelValue="changeThemesSyncEnabled">
-				<template #label><i class="ti ti-cloud-cog"></i> <SearchLabel>{{ i18n.ts._settings.enableSyncThemesBetweenDevices }}</SearchLabel></template>
-			</MkSwitch>
-		</SearchMarker>
 
-		<FormSection>
-			<div class="_formLinksGrid">
-				<FormLink to="/settings/theme/manage"><template #icon><i class="ti ti-tool"></i></template>{{ i18n.ts._theme.manage }}<template #suffix>{{ themesCount }}</template></FormLink>
-				<FormLink to="https://assets.misskey.io/theme/list" external><template #icon><i class="ti ti-world"></i></template>{{ i18n.ts._theme.explore }}</FormLink>
-				<FormLink to="/settings/theme/install"><template #icon><i class="ti ti-download"></i></template>{{ i18n.ts._theme.install }}</FormLink>
-				<FormLink to="/theme-editor"><template #icon><i class="ti ti-paint"></i></template>{{ i18n.ts._theme.make }}</FormLink>
-			</div>
-		</FormSection>
+
 	</div>
 </SearchMarker>
 </template>
 
 <script lang="ts" setup>
-import { computed, ref, watch } from 'vue';
-import JSON5 from 'json5';
-import defaultLightTheme from '@@/themes/l-light.json5';
-import defaultDarkTheme from '@@/themes/d-green-lime.json5';
-import type { Theme } from '@/theme.js';
+import { watch } from 'vue';
 import { isSafeMode } from '@@/js/config.js';
 import * as os from '@/os.js';
 import MkSwitch from '@/components/MkSwitch.vue';
-import FormSection from '@/components/form/section.vue';
-import FormLink from '@/components/form/link.vue';
-import MkFolder from '@/components/MkFolder.vue';
-import MkThemePreview from '@/components/MkThemePreview.vue';
 import MkInfo from '@/components/MkInfo.vue';
-import { getBuiltinThemesRef, getThemesRef, removeTheme } from '@/theme.js';
 import { isDeviceDarkmode } from '@/utility/is-device-darkmode.js';
 import { store } from '@/store.js';
 import { i18n } from '@/i18n.js';
-import { instance } from '@/instance.js';
-import { uniqueBy } from '@/utility/array.js';
 import { definePage } from '@/page.js';
 import { prefer } from '@/preferences.js';
-import { copyToClipboard } from '@/utility/copy-to-clipboard.js';
-
-const installedThemes = getThemesRef();
-const builtinThemes = getBuiltinThemesRef();
-
-const instanceDarkTheme = computed<Theme | null>(() => instance.defaultDarkTheme ? JSON5.parse(instance.defaultDarkTheme) : null);
-const installedDarkThemes = computed(() => installedThemes.value.filter(t => t.base === 'dark' || t.kind === 'dark'));
-const builtinDarkThemes = computed(() => builtinThemes.value.filter(t => t.base === 'dark' || t.kind === 'dark'));
-const instanceLightTheme = computed<Theme | null>(() => instance.defaultLightTheme ? JSON5.parse(instance.defaultLightTheme) : null);
-const installedLightThemes = computed(() => installedThemes.value.filter(t => t.base === 'light' || t.kind === 'light'));
-const builtinLightThemes = computed(() => builtinThemes.value.filter(t => t.base === 'light' || t.kind === 'light'));
-const themes = computed(() => uniqueBy([instanceDarkTheme.value, instanceLightTheme.value, ...builtinThemes.value, ...installedThemes.value].filter(x => x != null), theme => theme.id));
-
-const darkTheme = prefer.r.darkTheme;
-const darkThemeName = computed(() => darkTheme.value?.name ?? defaultDarkTheme.name);
-const darkThemeId = computed({
-	get() {
-		return darkTheme.value ? darkTheme.value.id : defaultDarkTheme.id;
-	},
-	set(id) {
-		const t = themes.value.find(x => x.id === id);
-		if (t) { // テーマエディタでテーマを作成したときなどは、themesに反映されないため undefined になる
-			prefer.commit('darkTheme', t);
-		}
-	},
-});
-const lightTheme = prefer.r.lightTheme;
-const lightThemeName = computed(() => lightTheme.value?.name ?? defaultLightTheme.name);
-const lightThemeId = computed({
-	get() {
-		return lightTheme.value ? lightTheme.value.id : defaultLightTheme.id;
-	},
-	set(id) {
-		const t = themes.value.find(x => x.id === id);
-		if (t) { // テーマエディタでテーマを作成したときなどは、themesに反映されないため undefined になる
-			prefer.commit('lightTheme', t);
-		}
-	},
-});
 
 const syncDeviceDarkMode = prefer.model('syncDeviceDarkMode');
-const themesCount = installedThemes.value.length;
 
 watch(syncDeviceDarkMode, () => {
 	if (syncDeviceDarkMode.value) {
@@ -286,39 +85,7 @@ async function toggleDarkMode() {
 	}
 }
 
-const themesSyncEnabled = ref(prefer.isSyncEnabled('themes'));
 
-function changeThemesSyncEnabled(value: boolean) {
-	if (value) {
-		prefer.enableSync('themes').then((res) => {
-			if (res == null) return;
-			if (res.enabled) themesSyncEnabled.value = true;
-		});
-	} else {
-		prefer.disableSync('themes');
-		themesSyncEnabled.value = false;
-	}
-}
-
-function onThemeContextmenu(theme: Theme, ev: MouseEvent) {
-	os.contextMenu([{
-		type: 'label',
-		text: theme.name,
-	}, {
-		icon: 'ti ti-clipboard',
-		text: i18n.ts._theme.copyThemeCode,
-		action: () => {
-			copyToClipboard(JSON5.stringify(theme, null, '\t'));
-		},
-	}, {
-		icon: 'ti ti-trash',
-		text: i18n.ts.delete,
-		danger: true,
-		action: () => {
-			removeTheme(theme);
-		},
-	}], ev);
-}
 
 const headerActions = computed(() => []);
 
@@ -330,56 +97,7 @@ definePage(() => ({
 }));
 </script>
 
-<style module>
-.themeSelect {
-	display: grid;
-	grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-	gap: var(--MI-margin);
-}
 
-.themeItemOuter {
-	position: relative;
-}
-
-.themeRadio {
-	position: absolute;
-	clip: rect(0, 0, 0, 0);
-	pointer-events: none;
-}
-
-.themeItemRoot {
-	position: relative;
-	display: block;
-	overflow: clip;
-	box-sizing: border-box;
-	border: 2px solid var(--MI_THEME-divider);
-	border-radius: var(--MI-radius);
-}
-
-.themeRadio:focus-visible + .themeItemRoot {
-	outline: 2px solid var(--MI_THEME-focus);
-	outline-offset: 2px;
-}
-
-.themeRadio:checked + .themeItemRoot {
-	border-color: var(--MI_THEME-accent);
-}
-
-.themeItemPreview {
-	display: block;
-	width: calc(100% + 2px);
-	height: auto;
-	margin-left: -1px;
-	border-bottom: 1px solid var(--MI_THEME-divider);
-}
-
-.themeItemCaption {
-	box-sizing: border-box;
-	padding: 8px 12px;
-	text-align: center;
-	font-size: 80%;
-}
-</style>
 
 <style lang="scss" scoped>
 .rfqxtzch {

@@ -153,15 +153,17 @@ export async function common(createVue: () => Promise<App<Element>>) {
 
 	// NOTE: この処理は必ずクライアント更新チェック処理より後に来ること(テーマ再構築のため)
 	watch(store.r.darkMode, (darkMode) => {
-		const theme = (() => {
-			if (darkMode) {
-				return isSafeMode ? defaultDarkTheme : (prefer.s.darkTheme ?? defaultDarkTheme);
-			} else {
-				return isSafeMode ? defaultLightTheme : (prefer.s.lightTheme ?? defaultLightTheme);
-			}
-		})();
-
-		applyTheme(theme);
+		if (darkMode) {
+			// Force monochromatic dark theme
+			import('@@/themes/d-monochrome.json5').then(({ default: monochromeDarkTheme }) => {
+				applyTheme(monochromeDarkTheme);
+			});
+		} else {
+			// Force monochromatic light theme
+			import('@@/themes/l-monochrome.json5').then(({ default: monochromeLightTheme }) => {
+				applyTheme(monochromeLightTheme);
+			});
+		}
 	}, { immediate: isSafeMode || miLocalStorage.getItem('theme') == null });
 
 	window.document.documentElement.dataset.colorScheme = store.s.darkMode ? 'dark' : 'light';
@@ -170,17 +172,23 @@ export async function common(createVue: () => Promise<App<Element>>) {
 		const darkTheme = prefer.model('darkTheme');
 		const lightTheme = prefer.model('lightTheme');
 
-		watch(darkTheme, (theme) => {
-			if (store.s.darkMode) {
-				applyTheme(theme ?? defaultDarkTheme);
-			}
-		});
+			watch(darkTheme, (theme) => {
+		if (store.s.darkMode) {
+			// Force monochromatic dark theme
+			import('@@/themes/d-monochrome.json5').then(({ default: monochromeDarkTheme }) => {
+				applyTheme(monochromeDarkTheme);
+			});
+		}
+	});
 
-		watch(lightTheme, (theme) => {
-			if (!store.s.darkMode) {
-				applyTheme(theme ?? defaultLightTheme);
-			}
-		});
+	watch(lightTheme, (theme) => {
+		if (!store.s.darkMode) {
+			// Force monochromatic light theme
+			import('@@/themes/l-monochrome.json5').then(({ default: monochromeLightTheme }) => {
+				applyTheme(monochromeLightTheme);
+			});
+		}
+	});
 	}
 
 	//#region Sync dark mode
