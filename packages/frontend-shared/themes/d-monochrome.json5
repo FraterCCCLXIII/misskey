@@ -1,0 +1,119 @@
+{
+	id: 'monochrome-dark-001',
+
+	name: 'Monochrome Dark',
+	author: 'paulbloch',
+	desc: 'Monochromatic theme with white buttons and black text on black background',
+
+	base: 'dark',
+
+	props: {
+		// Core colors - pure black and white
+		bg: '#000000',
+		fg: '#ffffff',
+
+		// Panel colors - various shades of black
+		panel: '#0a0a0a',
+		panelHighlight: '#1a1a1a',
+		panelHeaderBg: '#0f0f0f',
+		panelHeaderFg: '#ffffff',
+
+		// Button colors - white buttons with black text
+		buttonBg: '#ffffff',
+		buttonHoverBg: '#f0f0f0',
+		buttonFg: '#000000',
+		buttonHoverFg: '#000000',
+		buttonGradateA: '#ffffff',
+		buttonGradateB: '#f0f0f0',
+
+		// Accent colors - monochromatic
+		accent: '#ffffff',
+		accentedBg: 'rgba(255, 255, 255, 0.1)',
+		focus: 'rgba(255, 255, 255, 0.2)',
+		indicator: '#ffffff',
+		love: '#ffffff',
+
+		// Text colors
+		fgHighlighted: '#ffffff',
+		fgOnAccent: '#000000',
+		fgOnWhite: '#000000',
+
+		// Navigation
+		navBg: '#0a0a0a',
+		navFg: '#ffffff',
+		navActive: '#ffffff',
+		navIndicator: '#ffffff',
+
+		// Dividers and borders
+		divider: 'rgba(255, 255, 255, 0.15)',
+		panelBorder: '1px solid rgba(255, 255, 255, 0.15)',
+
+		// Input fields
+		inputBorder: 'rgba(255, 255, 255, 0.2)',
+		inputBorderHover: 'rgba(255, 255, 255, 0.3)',
+
+		// Switches
+		switchBg: 'rgba(255, 255, 255, 0.2)',
+		switchOffBg: 'rgba(255, 255, 255, 0.1)',
+		switchOffFg: 'rgba(255, 255, 255, 0.6)',
+		switchOnBg: '#ffffff',
+		switchOnFg: '#000000',
+
+		// Links and mentions
+		link: '#ffffff',
+		hashtag: '#ffffff',
+		mention: '#ffffff',
+		mentionMe: '#ffffff',
+		renote: '#ffffff',
+
+		// Status colors
+		success: '#ffffff',
+		error: '#ffffff',
+		warn: '#ffffff',
+
+		// Code highlighting
+		codeString: '#ffffff',
+		codeNumber: '#ffffff',
+		codeBoolean: '#ffffff',
+
+		// Scrollbars
+		scrollbarHandle: 'rgba(255, 255, 255, 0.3)',
+		scrollbarHandleHover: 'rgba(255, 255, 255, 0.5)',
+
+		// Shadows and overlays
+		shadow: 'rgba(0, 0, 0, 0.5)',
+		modalBg: 'rgba(0, 0, 0, 0.8)',
+
+		// Header and navigation
+		header: 'rgba(10, 10, 10, 0.8)',
+		pageHeaderBg: '#000000',
+		pageHeaderFg: '#ffffff',
+		windowHeader: 'rgba(10, 10, 10, 0.85)',
+		popup: '#0a0a0a',
+
+		// Info boxes
+		infoBg: '#0a0a0a',
+		infoFg: '#ffffff',
+		infoWarnBg: '#0a0a0a',
+		infoWarnFg: '#ffffff',
+
+		// Folder headers
+		folderHeaderBg: 'rgba(255, 255, 255, 0.05)',
+		folderHeaderHoverBg: 'rgba(255, 255, 255, 0.1)',
+
+		// Badge and message
+		badge: '#ffffff',
+		messageBg: '#000000',
+		dateLabelFg: '#ffffff',
+
+		// Deck background
+		deckBg: '#000000',
+
+		// HTML theme color
+		htmlThemeColor: '#000000',
+	},
+
+	codeHighlighter: {
+		base: 'one-dark-pro',
+	},
+}
