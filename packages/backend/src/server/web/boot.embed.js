@@ -125,7 +125,7 @@
 		body {
 			position: relative;
 			color: #dee7e4;
-			font-family: Hiragino Maru Gothic Pro, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
+			font-family: 'Inter', Hiragino Maru Gothic Pro, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
 			line-height: 1.35;
 			display: flex;
 			flex-direction: column;
@@ -191,7 +191,7 @@
 			padding: 7px 14px;
 			min-width: 100px;
 			font-weight: 700;
-			font-family: Hiragino Maru Gothic Pro, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
+			font-family: 'Inter', Hiragino Maru Gothic Pro, BIZ UDGothic, Roboto, HelveticaNeue, Arial, sans-serif;
 			line-height: 1.35;
 			border-radius: 99rem;
 			background-color: #b4e900;
